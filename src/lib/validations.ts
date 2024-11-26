@@ -10,5 +10,5 @@ export const formSchema = z.object({
   checkbox: z.enum(["option1", "option2"]),
   select: z.enum(["option1", "option2", "option3"]),
   textarea: z.string().min(1),
-  range: z.coerce.number().min(0).max(100),
+  range: z.coerce.number().min(0).max(60),
 })

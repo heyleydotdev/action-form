@@ -1,4 +1,23 @@
 import { createContext, useContext, useId } from "react"
+import { inferFlattenedErrors, ZodTypeAny } from "zod"
+
+interface FormContextValues {
+  fieldErrors?: inferFlattenedErrors<ZodTypeAny>["fieldErrors"]
+}
+
+const FormContext = createContext<FormContextValues>({} as FormContextValues)
+
+const useForm = () => {
+  const c = useContext(FormContext)
+  if (!c) {
+    throw new Error("useForm should be used within <Form>")
+  }
+  return c
+}
+
+const Form: React.FC<React.PropsWithChildren<FormContextValues>> = ({ fieldErrors, children }) => (
+  <FormContext.Provider value={{ fieldErrors }}>{children}</FormContext.Provider>
+)
 
 const FormFieldset: React.FC<React.FieldsetHTMLAttributes<HTMLFieldSetElement>> = (props) => (
   <fieldset className='grid gap-y-5' {...props} />
@@ -14,9 +33,7 @@ interface FormFieldProps {
   children: ((attr: FormFieldAttributes) => React.ReactNode) | React.ReactNode
 }
 
-interface FormFieldContextValues {
-  id: string
-}
+type FormFieldContextValues = FormFieldAttributes
 
 const FormFieldContext = createContext<FormFieldContextValues>({} as FormFieldContextValues)
 
@@ -32,7 +49,7 @@ const FormField: React.FC<FormFieldProps> = ({ name, children }) => {
   const id = useId()
 
   return (
-    <FormFieldContext.Provider value={{ id }}>
+    <FormFieldContext.Provider value={{ id, name }}>
       {typeof children === "function" ? children({ id, name }) : children}
     </FormFieldContext.Provider>
   )
@@ -46,19 +63,20 @@ const FormLabel: React.FC<React.LabelHTMLAttributes<HTMLLabelElement>> = (props)
   return <label htmlFor={id} {...props} />
 }
 
-const FormMessage: React.FC<React.HTMLAttributes<HTMLParagraphElement> & { message?: string | null }> = ({
-  message,
-  ...rest
-}) => {
-  if (!message) {
+const FormMessage: React.FC<React.HTMLAttributes<HTMLParagraphElement>> = (props) => {
+  const { fieldErrors } = useForm()
+  const { name } = useFormField()
+  const error = fieldErrors && name in fieldErrors && fieldErrors[name]?.[0] ? fieldErrors[name][0] : null
+
+  if (!error) {
     return null
   }
 
   return (
-    <p className='text-red-600 text-sm font-medium' {...rest}>
-      {message}
+    <p className='text-red-600 text-sm font-medium' {...props}>
+      {error}
     </p>
   )
 }
 
-export { FormFieldset, FormField, FormItem, FormLabel, FormMessage }
+export { Form, FormField, FormFieldset, FormItem, FormLabel, FormMessage }
