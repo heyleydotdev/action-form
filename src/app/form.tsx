@@ -110,7 +110,7 @@ export default function FormComp() {
               {(attr) => (
                 <FormItem>
                   <FormLabel>Range Input</FormLabel>
-                  <input type='range' min='0' max='100' defaultValue={state?.prevValues?.range} {...attr} />
+                  <input type='range' min='0' max='100' defaultValue={state?.prevValues?.range ?? 50} {...attr} />
                   <FormMessage />
                 </FormItem>
               )}

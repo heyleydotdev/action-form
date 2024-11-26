@@ -1,5 +1,6 @@
 "use server"
 
+import { z } from "zod"
 import { formSchema } from "~/lib/validations"
 
 export async function formAction(_: unknown, formData: FormData) {
@@ -7,6 +8,7 @@ export async function formAction(_: unknown, formData: FormData) {
 
   if (!success) {
     const prevValues = formSchema
+      .extend({ range: z.coerce.number() })
       .partial()
       .safeParse(Object.fromEntries(Array.from(formData.entries()).filter(([, v]) => Boolean(v)))).data
 
