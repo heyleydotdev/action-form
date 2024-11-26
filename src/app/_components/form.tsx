@@ -46,4 +46,19 @@ const FormLabel: React.FC<React.LabelHTMLAttributes<HTMLLabelElement>> = (props)
   return <label htmlFor={id} {...props} />
 }
 
-export { FormFieldset, FormField, FormItem, FormLabel }
+const FormMessage: React.FC<React.HTMLAttributes<HTMLParagraphElement> & { message?: string | null }> = ({
+  message,
+  ...rest
+}) => {
+  if (!message) {
+    return null
+  }
+
+  return (
+    <p className='text-red-600 text-sm font-medium' {...rest}>
+      {message}
+    </p>
+  )
+}
+
+export { FormFieldset, FormField, FormItem, FormLabel, FormMessage }

@@ -1,7 +1,7 @@
 "use client"
 
 import { useActionState } from "react"
-import { FormField, FormFieldset, FormItem, FormLabel } from "~/app/_components/form"
+import { FormField, FormFieldset, FormItem, FormLabel, FormMessage } from "~/app/_components/form"
 import { formAction } from "~/app/actions"
 
 export default function Form() {
@@ -16,9 +16,7 @@ export default function Form() {
               <FormItem>
                 <FormLabel>Text Input</FormLabel>
                 <input type='text' placeholder='Text Input' defaultValue={state?.prevValues?.text} {...attr} />
-                {state?.fieldErrors?.text?.[0] && (
-                  <p className='text-red-600 text-sm font-medium'>{state.fieldErrors.text[0]}</p>
-                )}
+                <FormMessage message={state?.fieldErrors?.text?.[0]} />
               </FormItem>
             )}
           </FormField>
@@ -27,9 +25,7 @@ export default function Form() {
               <FormItem>
                 <FormLabel>Date Input</FormLabel>
                 <input type='date' defaultValue={state?.prevValues?.date?.toISOString().slice(0, 10)} {...attr} />
-                {state?.fieldErrors?.date?.[0] && (
-                  <p className='text-red-600 text-sm font-medium'>{state.fieldErrors.date[0]}</p>
-                )}
+                <FormMessage message={state?.fieldErrors?.date?.[0]} />
               </FormItem>
             )}
           </FormField>
@@ -60,9 +56,7 @@ export default function Form() {
                 </FormLabel>
               )}
             </FormField>
-            {state?.fieldErrors?.radio?.[0] && (
-              <p className='text-red-600 text-sm font-medium'>{state.fieldErrors.radio[0]}</p>
-            )}
+            <FormMessage message={state?.fieldErrors?.radio?.[0]} />
           </FormItem>
           <FormField name='checkbox'>
             {(attr) => (
@@ -77,9 +71,7 @@ export default function Form() {
                   Checkbox
                 </FormLabel>
 
-                {state?.fieldErrors?.checkbox?.[0] && (
-                  <p className='text-red-600 text-sm font-medium'>{state.fieldErrors.checkbox[0]}</p>
-                )}
+                <FormMessage message={state?.fieldErrors?.checkbox?.[0]} />
               </FormItem>
             )}
           </FormField>
@@ -92,9 +84,7 @@ export default function Form() {
                   <option value='option2'>Option 2</option>
                   <option value='option3'>Option 3</option>
                 </select>
-                {state?.fieldErrors?.select?.[0] && (
-                  <p className='text-red-600 text-sm font-medium'>{state.fieldErrors.select[0]}</p>
-                )}
+                <FormMessage message={state?.fieldErrors?.select?.[0]} />
               </FormItem>
             )}
           </FormField>
@@ -109,9 +99,7 @@ export default function Form() {
                   defaultValue={state?.prevValues?.textarea}
                   {...attr}
                 />
-                {state?.fieldErrors?.textarea?.[0] && (
-                  <p className='text-red-600 text-sm font-medium'>{state.fieldErrors.textarea[0]}</p>
-                )}
+                <FormMessage message={state?.fieldErrors?.textarea?.[0]} />
               </FormItem>
             )}
           </FormField>
@@ -120,9 +108,7 @@ export default function Form() {
               <FormItem>
                 <FormLabel>Range Input</FormLabel>
                 <input type='range' min='0' max='100' defaultValue={state?.prevValues?.range} {...attr} />
-                {state?.fieldErrors?.range?.[0] && (
-                  <p className='text-red-600 text-sm font-medium'>{state.fieldErrors.range[0]}</p>
-                )}
+                <FormMessage message={state?.fieldErrors?.textarea?.[0]} />
               </FormItem>
             )}
           </FormField>
