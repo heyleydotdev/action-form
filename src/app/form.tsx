@@ -30,35 +30,37 @@ export default function FormComp() {
                 </FormItem>
               )}
             </FormField>
-            <FormItem>
-              <FormField name='radio'>
-                {(attr) => (
-                  <FormLabel>
-                    <input
-                      type='radio'
-                      value='option1'
-                      defaultChecked={state?.prevValues?.radio === "option1"}
-                      {...attr}
-                    />{" "}
-                    Option 1
-                  </FormLabel>
-                )}
-              </FormField>
-              <FormField name='radio'>
-                {(attr) => (
-                  <FormLabel>
-                    <input
-                      type='radio'
-                      value='option2'
-                      defaultChecked={state?.prevValues?.radio === "option2"}
-                      {...attr}
-                    />{" "}
-                    Option 2
-                  </FormLabel>
-                )}
-              </FormField>
-              <FormMessage />
-            </FormItem>
+            <FormField name='radio'>
+              <FormItem>
+                <FormField name='radio'>
+                  {(attr) => (
+                    <FormLabel>
+                      <input
+                        type='radio'
+                        value='option1'
+                        defaultChecked={state?.prevValues?.radio === "option1"}
+                        {...attr}
+                      />{" "}
+                      Option 1
+                    </FormLabel>
+                  )}
+                </FormField>
+                <FormField name='radio'>
+                  {(attr) => (
+                    <FormLabel>
+                      <input
+                        type='radio'
+                        value='option2'
+                        defaultChecked={state?.prevValues?.radio === "option2"}
+                        {...attr}
+                      />{" "}
+                      Option 2
+                    </FormLabel>
+                  )}
+                </FormField>
+                <FormMessage />
+              </FormItem>
+            </FormField>
             <FormField name='checkbox'>
               {(attr) => (
                 <FormItem>
