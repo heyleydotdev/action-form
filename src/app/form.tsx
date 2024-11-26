@@ -1,7 +1,7 @@
 "use client"
 
 import { useActionState } from "react"
-import { FormField, FormFieldset } from "~/app/_components/form"
+import { FormField, FormFieldset, FormItem } from "~/app/_components/form"
 import { formAction } from "~/app/actions"
 
 export default function Form() {
@@ -13,18 +13,18 @@ export default function Form() {
         <FormFieldset>
           <FormField name='text'>
             {(attr) => (
-              <>
+              <FormItem>
                 <label htmlFor={attr.id}>Text Input</label>
                 <input type='text' placeholder='Text Input' defaultValue={state?.prevValues?.text} {...attr} />
-              </>
+              </FormItem>
             )}
           </FormField>
           <FormField name='date'>
             {(attr) => (
-              <>
+              <FormItem>
                 <label htmlFor={attr.id}>Date Input</label>
                 <input type='date' defaultValue={state?.prevValues?.date?.toISOString().slice(0, 10)} {...attr} />
-              </>
+              </FormItem>
             )}
           </FormField>
           <FormField name='radio'>
@@ -52,25 +52,25 @@ export default function Form() {
                   defaultChecked={state?.prevValues?.checkbox === "option1"}
                   {...attr}
                 />{" "}
-                Checkbox 1
+                Checkbox
               </label>
             )}
           </FormField>
           <FormField name='select'>
             {(attr) => (
-              <>
+              <FormItem>
                 <label htmlFor={attr.id}>Select Input</label>
                 <select defaultValue={state?.prevValues?.select} {...attr}>
                   <option value='option1'>Option 1</option>
                   <option value='option2'>Option 2</option>
                   <option value='option3'>Option 3</option>
                 </select>
-              </>
+              </FormItem>
             )}
           </FormField>
           <FormField name='textarea'>
             {(attr) => (
-              <>
+              <FormItem>
                 <label htmlFor={attr.id}>Textarea</label>
                 <textarea
                   rows={4}
@@ -79,15 +79,15 @@ export default function Form() {
                   defaultValue={state?.prevValues?.textarea}
                   {...attr}
                 />
-              </>
+              </FormItem>
             )}
           </FormField>
           <FormField name='range'>
             {(attr) => (
-              <>
+              <FormItem>
                 <label htmlFor={attr.id}>Range Input</label>
                 <input type='range' min='0' max='100' defaultValue={state?.prevValues?.range} {...attr} />
-              </>
+              </FormItem>
             )}
           </FormField>
 

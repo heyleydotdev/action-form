@@ -17,16 +17,14 @@ interface FormFieldProps {
 const FormField: React.FC<FormFieldProps> = ({ name, children }) => {
   const id = useId()
 
-  return (
-    <div className='grid gap-y-2'>
-      {typeof children === "function"
-        ? children({
-            id,
-            name,
-          })
-        : children}
-    </div>
-  )
+  return typeof children === "function"
+    ? children({
+        id,
+        name,
+      })
+    : children
 }
 
-export { FormFieldset, FormField }
+const FormItem: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => <div className='grid gap-y-2' {...props} />
+
+export { FormFieldset, FormField, FormItem }
