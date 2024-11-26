@@ -1,20 +1,20 @@
 "use client"
 
 import { useActionState } from "react"
-import { FormField, FormFieldset, FormItem } from "~/app/_components/form"
+import { FormField, FormFieldset, FormItem, FormLabel } from "~/app/_components/form"
 import { formAction } from "~/app/actions"
 
 export default function Form() {
   const [state, action, isPending] = useActionState(formAction, undefined)
 
   return (
-    <div className='grid grid-cols-[1fr_3fr] gap-8'>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_3fr] gap-8'>
       <form action={action} encType='multipart/form-data'>
         <FormFieldset>
           <FormField name='text'>
             {(attr) => (
               <FormItem>
-                <label htmlFor={attr.id}>Text Input</label>
+                <FormLabel>Text Input</FormLabel>
                 <input type='text' placeholder='Text Input' defaultValue={state?.prevValues?.text} {...attr} />
               </FormItem>
             )}
@@ -22,30 +22,30 @@ export default function Form() {
           <FormField name='date'>
             {(attr) => (
               <FormItem>
-                <label htmlFor={attr.id}>Date Input</label>
+                <FormLabel>Date Input</FormLabel>
                 <input type='date' defaultValue={state?.prevValues?.date?.toISOString().slice(0, 10)} {...attr} />
               </FormItem>
             )}
           </FormField>
           <FormField name='radio'>
             {(attr) => (
-              <label htmlFor={attr.id}>
+              <FormLabel>
                 <input type='radio' value='option1' defaultChecked={state?.prevValues?.radio === "option1"} {...attr} />{" "}
                 Option 1
-              </label>
+              </FormLabel>
             )}
           </FormField>
           <FormField name='radio'>
             {(attr) => (
-              <label htmlFor={attr.id}>
+              <FormLabel>
                 <input type='radio' value='option2' defaultChecked={state?.prevValues?.radio === "option2"} {...attr} />{" "}
                 Option 2
-              </label>
+              </FormLabel>
             )}
           </FormField>
           <FormField name='checkbox'>
             {(attr) => (
-              <label htmlFor={attr.id}>
+              <FormLabel>
                 <input
                   type='checkbox'
                   value='option1'
@@ -53,13 +53,13 @@ export default function Form() {
                   {...attr}
                 />{" "}
                 Checkbox
-              </label>
+              </FormLabel>
             )}
           </FormField>
           <FormField name='select'>
             {(attr) => (
               <FormItem>
-                <label htmlFor={attr.id}>Select Input</label>
+                <FormLabel>Select Input</FormLabel>
                 <select defaultValue={state?.prevValues?.select} {...attr}>
                   <option value='option1'>Option 1</option>
                   <option value='option2'>Option 2</option>
@@ -71,7 +71,7 @@ export default function Form() {
           <FormField name='textarea'>
             {(attr) => (
               <FormItem>
-                <label htmlFor={attr.id}>Textarea</label>
+                <FormLabel>Textarea</FormLabel>
                 <textarea
                   rows={4}
                   cols={30}
@@ -85,7 +85,7 @@ export default function Form() {
           <FormField name='range'>
             {(attr) => (
               <FormItem>
-                <label htmlFor={attr.id}>Range Input</label>
+                <FormLabel>Range Input</FormLabel>
                 <input type='range' min='0' max='100' defaultValue={state?.prevValues?.range} {...attr} />
               </FormItem>
             )}

@@ -1,4 +1,4 @@
-import { useId } from "react"
+import { createContext, useContext, useId } from "react"
 
 const FormFieldset: React.FC<React.FieldsetHTMLAttributes<HTMLFieldSetElement>> = (props) => (
   <fieldset className='grid gap-y-5' {...props} />
@@ -14,17 +14,36 @@ interface FormFieldProps {
   children: ((attr: FormFieldAttributes) => React.ReactNode) | React.ReactNode
 }
 
+interface FormFieldContextValues {
+  id: string
+}
+
+const FormFieldContext = createContext<FormFieldContextValues>({} as FormFieldContextValues)
+
+const useFormField = () => {
+  const c = useContext(FormFieldContext)
+  if (!c) {
+    throw new Error("useFormField should be used within <FormField>")
+  }
+  return c
+}
+
 const FormField: React.FC<FormFieldProps> = ({ name, children }) => {
   const id = useId()
 
-  return typeof children === "function"
-    ? children({
-        id,
-        name,
-      })
-    : children
+  return (
+    <FormFieldContext.Provider value={{ id }}>
+      {typeof children === "function" ? children({ id, name }) : children}
+    </FormFieldContext.Provider>
+  )
 }
 
 const FormItem: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => <div className='grid gap-y-2' {...props} />
 
-export { FormFieldset, FormField, FormItem }
+const FormLabel: React.FC<React.LabelHTMLAttributes<HTMLLabelElement>> = (props) => {
+  const { id } = useFormField()
+
+  return <label htmlFor={id} {...props} />
+}
+
+export { FormFieldset, FormField, FormItem, FormLabel }
